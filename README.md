@@ -1,33 +1,3 @@
-# Edge of Stochastic Stability (EoSS)
-## Generating Per-Sample Loss GIFs
-
-You can create an animated GIF showing how the per-sample loss distribution evolves over training. Follow the steps below:
-1. Identify the most recent run directory
-Make sure $RESULTS points to your eos_results directory, then run:
-  ```bash
-RUN_DIR=$(ls -td "$RESULTS"/plaintext/cifar10_mlp/* | head -1)
-echo "$RUN_DIR"
-  ```
-
-2. Locate the latest per-sample histogram folder
-  ```bash
-LATEST_PS=$(find "$RESULTS"/plaintext/cifar10_mlp -maxdepth 5 -type d -name per_sample_histograms | sort | tail -1)
-echo "$LATEST_PS"
-  ```
-This finds the newest per_sample_histograms directory, which contains the saved PNG frames.
-
-3. Generate the GIF
-Run:
-  ```bash
-python eoss_shared/tools/make_gif.py \
-  --frames-dir "$LATEST_PS/frames" \
-  --metric loss \
-  --out "$RUN_DIR/loss_hist_evolution.gif" \
-  --fps 6
-  ```
-
-
-___
 This repository accompanies the paper [Edge of Stochastic Stability: Revisiting the Edge of Stability for SGD](https://arxiv.org/abs/2412.20553) by Arseniy Andreyev and Pierfrancesco Beneventano. Feel free to reuse it in any way - if you ended up using this code, please consider citing it by citing our paper.
 
 ## Key Capabilities
